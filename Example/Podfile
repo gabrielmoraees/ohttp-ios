@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'oHTTP_Example' do
+  pod 'oHTTP', :path => '../'
+
+  target 'oHTTP_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

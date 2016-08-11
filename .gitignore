@@ -1,0 +1,19 @@
+SX files
+.DS_Store
+*.DS_Store
+
+bin/
+target/
+.project
+.settings
+.externalToolBuilders/
+.classpath
+.idea
+*.log
+*.out
+*.iml
+maven-eclipse.xml
+.DS_Store
+.gitignore~
+README.md~
+

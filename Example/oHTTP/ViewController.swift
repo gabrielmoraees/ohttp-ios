@@ -7,18 +7,17 @@
 //
 
 import UIKit
+import oHTTP
+import Alamofire
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        Alamofire.request(.GET, "https://google.com.br").authorizedResponse { (req, res, data, error) in
+            print(res)
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 }
 

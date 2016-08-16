@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '7ACCEC3DA67EE8E3F810524C0CA5BE66'
+               BlueprintIdentifier = '1BB8CA92851F79C325176E14F5AFC35A'
                BlueprintName = 'oHTTP'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'oHTTP.framework'>

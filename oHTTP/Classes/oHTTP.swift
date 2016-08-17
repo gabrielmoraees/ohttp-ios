@@ -13,7 +13,15 @@ import Alamofire
 /*
  
  */
-extension Alamofire.Request {
+public func authorizedRequest(method: Alamofire.Method, _ URLString: URLStringConvertible, parameters: [String: AnyObject]? = nil, encoding: ParameterEncoding = .URL, headers: [String: String]? = nil) -> Request {
+    return Manager.sharedInstance.authorizedRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers)
+}
+
+
+/*
+ 
+ */
+public extension Alamofire.Request {
     
     public func authorizedResponse(completionHandler: (NSURLRequest, NSHTTPURLResponse?, NSData?, NSError?) -> Void) -> Self {
         return authorizationHandler(nil, completionHandler: completionHandler)
@@ -45,7 +53,7 @@ extension Alamofire.Request {
  
  
  */
-extension Manager {
+public extension Alamofire.Manager {
     public func authorizedRequest(method: Alamofire.Method, _ URLString: URLStringConvertible, parameters: [String: AnyObject]? = nil, encoding: ParameterEncoding = .URL, headers: [String: String]? = nil) -> Request {
         
         var heads = headers

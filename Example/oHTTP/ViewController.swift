@@ -7,17 +7,14 @@
 //
 
 import UIKit
-import oHTTP
 import Alamofire
+import oHTTP
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Alamofire.request(.GET, "https://google.com.br").authorizedResponse { (req, res, data, error) in
-            print(res)
-        }
     }
 }
 

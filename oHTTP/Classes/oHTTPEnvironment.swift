@@ -29,11 +29,15 @@ public class oHTTPEnvironment: NSObject {
         
         get {
             
-            let authToken = "\(oHTTPEnvironment.x_uid):\(self._nextMutableToken)"
-            let authTokenData = authToken.dataUsingEncoding(NSUTF8StringEncoding)
-            let authTokenB64 = authTokenData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-            
-            return "Bearer \(authTokenB64)"
+            if let uid = oHTTPEnvironment.x_uid, let token = oHTTPEnvironment._nextMutableToken{
+                let authToken = "\(uid):\(token)"
+                let authTokenData = authToken.dataUsingEncoding(NSUTF8StringEncoding)
+                let authTokenB64 = authTokenData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                
+                return "Bearer \(authTokenB64)"
+            } else {
+                return nil
+            }
         }
     }
 }

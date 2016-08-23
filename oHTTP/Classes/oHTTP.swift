@@ -58,19 +58,21 @@ public extension Alamofire.Manager {
         
         var heads = headers
         
-        if heads != nil {
-            if heads!["X-Application-Key"] == nil {
-                
-                if let authToken = oHTTPEnvironment.nextMutableToken {
-                    heads!["X-Application-Key"] = authToken
-                }
-                
-            }
-        } else {
-            heads = [String: String]()
+        if heads == nil {
+            heads = [String : String]()
+        }
+        
+        if heads!["authorization"] == nil {
             
             if let authToken = oHTTPEnvironment.nextMutableToken {
-                heads!["X-Application-Key"] = authToken
+                heads!["authorization"] = authToken
+            }
+        }
+        
+        if heads!["x-uid"] == nil {
+            
+            if let uid = oHTTPEnvironment.x_uid {
+                heads!["x-uid"] = uid
             }
         }
         

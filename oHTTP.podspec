@@ -14,5 +14,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   s.source_files = 'oHTTP/Classes/**/*'
 
-  s.dependency 'Alamofire', '~> 3.4'
+  s.dependency 'Alamofire', '~> 3.5'
 end

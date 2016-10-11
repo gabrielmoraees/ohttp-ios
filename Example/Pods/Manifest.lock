@@ -1,5 +1,7 @@
 PODS:
-  - oHTTP (0.1.0)
+  - Alamofire (3.5.1)
+  - oHTTP (0.1.0):
+    - Alamofire (~> 3.5)
 
 DEPENDENCIES:
   - oHTTP (from `../`)
@@ -9,7 +11,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  oHTTP: 48b8d3b6a06402ca574bfb269f24ab205affed50
+  Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
+  oHTTP: 29217025bde50b6404d7c1a9bd23e51354ed7e91
 
 PODFILE CHECKSUM: 277f720b113f1f95110c72d0c96e99e2bb2a6d64
 

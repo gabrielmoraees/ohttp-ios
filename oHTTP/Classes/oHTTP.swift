@@ -27,7 +27,11 @@ public extension Alamofire.Request {
         return authorizationHandler(nil, completionHandler: completionHandler)
     }
     
-    private func authorizationHandler(queue: dispatch_queue_t? = nil, completionHandler: (NSURLRequest, NSHTTPURLResponse?, NSData?, NSError?) -> Void) -> Self {
+    public func authorizedResponse() -> Self {
+        return authorizationHandler(nil, completionHandler: nil)
+    }
+    
+    private func authorizationHandler(queue: dispatch_queue_t? = nil, completionHandler: ((NSURLRequest, NSHTTPURLResponse?, NSData?, NSError?) -> Void)?) -> Self {
         return response { (req, res, data, error) in
             
             if let headers = res?.allHeaderFields {
@@ -43,7 +47,7 @@ public extension Alamofire.Request {
             }
             
             dispatch_async(queue ?? dispatch_get_main_queue(), {
-                completionHandler(req!, res, data, error)
+                completionHandler?(req!, res, data, error)
             })
         }
     }

@@ -23,11 +23,11 @@ public func authorizedRequest(method: Alamofire.Method, _ URLString: URLStringCo
  */
 public extension Alamofire.Request {
     
-    public func authorizedResponse(completionHandler: (NSURLRequest, NSHTTPURLResponse?, NSData?, NSError?) -> Void) -> Self {
+    public func authorize(completionHandler: (NSURLRequest, NSHTTPURLResponse?, NSData?, NSError?) -> Void) -> Self {
         return authorizationHandler(nil, completionHandler: completionHandler)
     }
     
-    public func authorizedResponse() -> Self {
+    public func authorize() -> Self {
         return authorizationHandler(nil, completionHandler: nil)
     }
     

@@ -1,0 +1,10 @@
+framework module oHTTP {
+  umbrella header "oHTTP-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module oHTTP.Swift {
+    header "oHTTP-Swift.h"
+}

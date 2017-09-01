@@ -31,8 +31,8 @@ public class oHTTPEnvironment: NSObject {
             
             if let uid = oHTTPEnvironment.x_uid, let token = oHTTPEnvironment._nextMutableToken{
                 let authToken = "\(uid):\(token)"
-                let authTokenData = authToken.dataUsingEncoding(NSUTF8StringEncoding)
-                let authTokenB64 = authTokenData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                let authTokenData = authToken.data(using: String.Encoding.utf8)
+                let authTokenB64 = authTokenData!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
                 
                 return "Bearer \(authTokenB64)"
             } else {

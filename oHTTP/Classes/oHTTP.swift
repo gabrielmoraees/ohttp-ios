@@ -13,17 +13,22 @@ import Alamofire
 /*
  
  */
-public func authorizedRequest(method: Alamofire.Method, _ URLString: URLStringConvertible, parameters: [String: AnyObject]? = nil, encoding: ParameterEncoding = .URL, headers: [String: String]? = nil) -> Request {
-    return Manager.sharedInstance.authorizedRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers)
+public func authorizedRequest(method: HTTPMethod, _ URLString: URLConvertible, parameters: [String: Any]? = nil, encoding: URLEncoding = URLEncoding.default, headers: [String: String]? = nil) -> DataRequest {
+    Alamofire.request(URLString).response { (response) in
+        
+    }
+    return SessionManager.default.authorizedRequest(method: method, URLString, parameters: parameters, encoding: encoding, headers: headers)
 }
 
 
 /*
  
  */
-public extension Alamofire.Request {
+public extension Alamofire.DataRequest {
     
-    public func authorize(completionHandler: (NSURLRequest, NSHTTPURLResponse?, NSData?, NSError?) -> Void) -> Self {
+    typealias CompletionHandler = (DefaultDataResponse) -> Void
+    
+    public func authorize(completionHandler: @escaping CompletionHandler) -> Self {
         return authorizationHandler(nil, completionHandler: completionHandler)
     }
     
@@ -31,34 +36,33 @@ public extension Alamofire.Request {
         return authorizationHandler(nil, completionHandler: nil)
     }
     
-    private func authorizationHandler(queue: dispatch_queue_t? = nil, completionHandler: ((NSURLRequest, NSHTTPURLResponse?, NSData?, NSError?) -> Void)?) -> Self {
-        return response { (req, res, data, error) in
-            
-            if let headers = res?.allHeaderFields {
-                
+    private func authorizationHandler(_ queue: DispatchQueue? = nil, completionHandler: CompletionHandler?) -> Self {
+        
+        return response { result in
+            if let headers = result.response?.allHeaderFields {
                 if let id = headers["x-uid"] as? String {
                     oHTTPEnvironment.x_uid = id
                 }
-                
                 if let authToken = headers["x-access-token"] as? String {
                     oHTTPEnvironment.currentMutableToken = oHTTPEnvironment.nextMutableToken
                     oHTTPEnvironment.nextMutableToken = authToken
                 }
             }
-            
-            dispatch_async(queue ?? dispatch_get_main_queue(), {
-                completionHandler?(req!, res, data, error)
-            })
+            let dispatchingQueue = queue ?? DispatchQueue.main
+            dispatchingQueue.async {
+                completionHandler?(result)
+            }
         }
     }
+    
 }
 
 /*
  
  
  */
-public extension Alamofire.Manager {
-    public func authorizedRequest(method: Alamofire.Method, _ URLString: URLStringConvertible, parameters: [String: AnyObject]? = nil, encoding: ParameterEncoding = .URL, headers: [String: String]? = nil) -> Request {
+public extension Alamofire.SessionManager {
+    public func authorizedRequest(method: HTTPMethod, _ URLString: URLConvertible, parameters: [String: Any]? = nil, encoding: URLEncoding = URLEncoding.default, headers: [String: String]? = nil) -> DataRequest {
         
         var heads = headers
         
@@ -80,6 +84,6 @@ public extension Alamofire.Manager {
             }
         }
         
-        return self.request(method, URLString, parameters: parameters, encoding: encoding, headers: heads)
+        return self.request(URLString, method: method, parameters: parameters, encoding: encoding, headers: heads)
     }
 }

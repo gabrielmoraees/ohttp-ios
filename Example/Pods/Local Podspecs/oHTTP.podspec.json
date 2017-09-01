@@ -20,7 +20,7 @@
   "source_files": "oHTTP/Classes/**/*",
   "dependencies": {
     "Alamofire": [
-      "~> 3.5"
+
     ]
   }
 }
